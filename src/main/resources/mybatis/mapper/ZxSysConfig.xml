@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.water.modules.dao.SysConfigDao">
+	<resultMap id="zxSysConfigMapResult" type="com.water.modules.model.ZxSysConfig">
+		<result column="id" property="id" /> <!-- 主键ID -->
+		<result column="code" property="code" /> <!-- 所属系统标识(com表示所有系统共用) -->
+		<result column="attrKey" property="attrkey" /> <!-- 参数名 -->
+		<result column="attrValue" property="attrvalue" /> <!-- 参数值 -->
+		<result column="descs" property="descs" /> <!-- 描述 -->
+		<result column="creater" property="creater" /> <!-- 创建人 -->
+		<result column="updater" property="updater" /> <!-- 修改人 -->
+		<result column="createtime" property="createtime" /> <!-- 创建时间 -->
+		<result column="updatetime" property="updatetime" /> <!-- 修改时间 -->
+	</resultMap>
+
+	<sql id="select-all-column">
+		id ,
+		code ,
+		attrKey ,
+		attrValue ,
+		descs ,
+		creater ,
+		updater ,
+		createtime ,
+		updatetime
+	</sql>
+
+	<sql id="where-all-condition">
+		<if test="id != null">
+			AND id = #{id}
+		</if>
+		<if test="code != null and code != ''">
+			AND code = #{code}
+		</if>
+		<if test="attrkey != null and attrkey != ''">
+			AND attrKey = #{attrkey}
+		</if>
+		<if test="attrvalue != null and attrvalue != ''">
+			AND attrValue = #{attrvalue}
+		</if>
+		<if test="descs != null and descs != ''">
+			AND descs = #{descs}
+		</if>
+		<if test="creater != null">
+			AND creater = #{creater}
+		</if>
+		<if test="updater != null">
+			AND updater = #{updater}
+		</if>
+		<if test="createtime != null">
+			AND createtime = #{createtime}
+		</if>
+		<if test="updatetime != null">
+			AND updatetime = #{updatetime}
+		</if>
+	</sql>
+
+	<!-- query list without page -->
+	<select id="selectZxSysConfigListByCond" resultMap="zxSysConfigMapResult">
+		SELECT
+		<include refid="select-all-column" />
+		FROM zx_sys_config WHERE 1=1
+		<include refid="where-all-condition" />
+	</select>
+
+	<!-- query record -->
+	<select id="selectZxSysConfigByCond" resultMap="zxSysConfigMapResult">
+		SELECT
+		<include refid="select-all-column" />
+		FROM zx_sys_config WHERE 1=1
+		<include refid="where-all-condition" />
+		LIMIT 1
+	</select>
+	
+	
+	<update id="updateZxSysConfigByMap" parameterType="java.util.Map">
+		UPDATE zx_sys_config
+		<set>
+			<if test="attrvalue != null">
+				attrValue = #{attrvalue} ,
+			</if>
+			<if test="updater != null">
+				updater = #{updater} ,
+			</if>
+			updatetime = SYSDATE()
+		</set>
+		WHERE code = #{code} AND attrKey = #{attrkey}
+	</update>
+
+
+</mapper>

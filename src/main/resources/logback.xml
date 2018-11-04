@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="60 seconds">
+
+	<property name="log.dir" value="/data/logs/5636-netbar-water/" />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder charset="UTF-8">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger [%file:%line] -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="RollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/application-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger [%file:%line] -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="ERRRollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/application_err-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger [%file:%line] -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="httpclient.wire" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="com.opensymphony" level="INFO" />
+	<logger name="org.apache" level="INFO" />
+	<logger name="org.mybatis" level="INFO" />
+	<logger name="com.google.code.yanf4j" level="INFO" />
+	<logger name="net.rubyeye.xmemcached" level="INFO" />
+	<logger name="org.tuckey.web.filters.urlrewrite" level="INFO" />
+	<logger name="java.sql.ResultSet" level="DEBUG" />
+	<logger name="java.sql.Statement" level="DEBUG" />
+	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+	<logger name="io.undertow.request" level="WARN" />
+	<logger name="freemarker.cache" level="ERROR" />
+	<logger name="org.xnio.nio" level="ERROR" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"  level="TRACE" />
+
+
+
+
+	<!-- SWITCH DEBUG/INFO -->
+
+	<logger name="java.sql" level="DEBUG" />
+	<logger name="net.sf" level="INFO" />
+
+	<root level="INFO">
+		<appender-ref ref="stdout" />
+		 <appender-ref ref="RollingFile" />
+		 <appender-ref ref="ERRRollingFile" />
+	</root>
+</configuration>

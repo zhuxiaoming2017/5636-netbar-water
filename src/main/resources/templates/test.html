@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script type="text/javascript" src="${baseRes}/public/js/common/jquery-2.0.0.min.js" ></script>
+</head>
+<body>
+<script>
+    function clicksav(){
+        $.ajax({
+            url:  "http://h5.5636.com/appapi/savhis" ,
+            data: {"appname":"5636网吧联盟","imie":"869782023378949","ipaddress":"192.168.2.112","phonenumber":"+8613545098051","sdkversion":"70607"} ,
+            success: function(){
+                alert("done!!!");
+            }
+        })
+    }
+
+</script>
+
+<input type="button"  onclick="clicksav()"  title="click" value="click">
+</body>
+</html>
